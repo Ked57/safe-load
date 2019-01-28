@@ -1,0 +1,31 @@
+{
+  "name": "safe-load",
+  "version": "0.0.1",
+  "description": "Validate your payload, stay safe friends",
+  "main": "app.js",
+  "scripts": {
+    "start": "tsc && node ./lib/app.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ked57/safe-load.git"
+  },
+  "keywords": [
+    "validate",
+    "payload",
+    "validator",
+    "safe"
+  ],
+  "author": "Clément Fassot",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Ked57/safe-load/issues"
+  },
+  "homepage": "https://github.com/Ked57/safe-load#readme",
+  "devDependencies": {
+    "prettier": "^1.16.1",
+    "ts-lint": "^4.5.1",
+    "typescript": "^3.2.2"
+  }
+}
