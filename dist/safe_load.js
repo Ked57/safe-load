@@ -36,11 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var payloadContains = function (payload, schema) {
+    if (!payload || !schema)
+        return false;
+    for (var i = 0, l = schema.length; i < l; i++) {
+        if (schema[i] instanceof Array && payload[i] instanceof Array) {
+            if (!schema[i].equals(payload[i]))
+                return false;
+        }
+        else if (schema[i] != payload[i]) {
+            return false;
+        }
+    }
+    return true;
+};
 var check = function (payload, schema) { return __awaiter(_this, void 0, void 0, function () {
+    var payloadKeys, schemaKeys;
     var _this = this;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Promise.all(Object.keys(payload).map(function (key) { return __awaiter(_this, void 0, void 0, function () {
+            case 0:
+                payloadKeys = Object.keys(payload);
+                schemaKeys = Object.keys(schema);
+                if (!!payloadContains(payloadKeys, schemaKeys)) return [3 /*break*/, 1];
+                return [2 /*return*/, new Promise(function (_, reject) {
+                        return reject("Error: Payload's structure doesn't match the schema");
+                    })];
+            case 1: return [4 /*yield*/, Promise.all(payloadKeys.map(function (key) { return __awaiter(_this, void 0, void 0, function () {
                     var _this = this;
                     return __generator(this, function (_a) {
                         return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
@@ -48,6 +70,7 @@ var check = function (payload, schema) { return __awaiter(_this, void 0, void 0,
                                 return __generator(this, function (_b) {
                                     switch (_b.label) {
                                         case 0:
+                                            if (!Object.keys(payload)) return [3 /*break*/, 6];
                                             if (!(typeof payload[key] === "object")) return [3 /*break*/, 5];
                                             _b.label = 1;
                                         case 1:
@@ -76,7 +99,7 @@ var check = function (payload, schema) { return __awaiter(_this, void 0, void 0,
                             }); })];
                     });
                 }); }))];
-            case 1: return [2 /*return*/, _a.sent()];
+            case 2: return [2 /*return*/, _a.sent()];
         }
     });
 }); };

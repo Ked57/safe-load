@@ -39,7 +39,6 @@ test("payload is not valid", async t => {
     const testPayload = await validate(invalidPayload, payloadSchema);
     t.notDeepEqual(testPayload, payload);
   } catch (err) {
-    console.error(err);
     t.pass();
   }
 });
@@ -49,7 +48,6 @@ test("payload has missing properties", async t => {
     await validate(missingPropertiesPayload, payloadSchema);
     t.fail("validate promise didn't reject with missingPropertiesPayload");
   } catch (err) {
-    console.error(err);
     t.pass();
   }
 });
