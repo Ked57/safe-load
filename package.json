@@ -2,7 +2,7 @@
   "name": "safe-load",
   "version": "0.0.1",
   "description": "Validate your payload, stay safe friends",
-  "main": "app.js",
+  "main": "./dist/safe_load.js",
   "scripts": {
     "start": "npm run build && npm run serve",
     "build": "tsc",
