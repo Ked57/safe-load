@@ -4,7 +4,9 @@
   "description": "Validate your payload, stay safe friends",
   "main": "app.js",
   "scripts": {
-    "start": "tsc && node ./lib/app.js",
+    "start": "npm run build && npm run serve",
+    "build": "tsc",
+    "serve": "node ./dist/safe_load.js",
     "test": "test"
   },
   "repository": {
@@ -26,6 +28,7 @@
   "devDependencies": {
     "prettier": "^1.16.1",
     "ts-lint": "^4.5.1",
+    "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
   }
 }
