@@ -1,13 +1,13 @@
 {
   "name": "safe-load",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Validate your payload, stay safe friends",
   "main": "./dist/safe_load.js",
   "scripts": {
     "start": "npm run build && npm run serve",
     "build": "tsc",
     "serve": "node ./dist/safe_load.js",
-    "test": "test"
+    "test": "tsc && ava"
   },
   "repository": {
     "type": "git",
@@ -30,5 +30,8 @@
     "ts-lint": "^4.5.1",
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "ava": "^1.2.0"
   }
 }

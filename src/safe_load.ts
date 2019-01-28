@@ -1,14 +1,14 @@
-export const validate = async (
+const check = async (
   payload: { [key: string]: any },
   schema: { [key: string]: any }
 ) => {
-  return (await Promise.all(
+  return await Promise.all(
     Object.keys(payload).map(
       async key =>
         new Promise(async (resolve, reject) => {
           if (typeof payload[key] === "object") {
             try {
-              resolve(await validate(payload[key], schema[key]));
+              resolve(await check(payload[key], schema[key]));
             } catch (err) {
               reject(err);
             }
@@ -19,31 +19,23 @@ export const validate = async (
               ]} instead of ${schema[key]}`
             );
           } else {
-            resolve(payload);
+            resolve(payload[key]);
           }
         })
     )
-  )).reduce((previousValue, currentValue) => {
-    currentValue = {
-      ...currentValue,
-      ...previousValue
-    };
-    return currentValue;
+  );
+};
+
+export const validate = async (
+  payload: { [key: string]: any },
+  schema: { [key: string]: any }
+) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await check(payload, schema);
+      resolve(payload);
+    } catch (err) {
+      reject(err);
+    }
   });
 };
-/*
-validate(
-  {
-    data: {
-      hello: "yo"
-    }
-  },
-  {
-    data: {
-      hello: "string"
-    }
-  }
-)
-  .then(payload => console.log(payload))
-  .catch(err => console.error(err));
-*/
