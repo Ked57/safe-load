@@ -21,6 +21,14 @@ const missingPropertiesPayload = {
     level: 12
   }
 };
+const incompleteSchemaPayload = {
+  data: {
+    welcomingMessage: "hello world",
+    level: 12,
+    nickname: "ked",
+    somethingNotImportant: "this is really not important"
+  }
+};
 const payloadSchema = {
   data: {
     welcomingMessage: "string",
@@ -46,8 +54,18 @@ test("payload is not valid", async t => {
 test("payload has missing properties", async t => {
   try {
     await validate(missingPropertiesPayload, payloadSchema);
-    t.fail("validate promise didn't reject with missingPropertiesPayload");
+    t.fail("validate's promise didn't reject with missingPropertiesPayload");
   } catch (err) {
     t.pass();
+  }
+});
+
+test("schema is incomplete but payload is valid", async t => {
+  try {
+    await validate(incompleteSchemaPayload, payloadSchema);
+    t.pass();
+  } catch (err) {
+    console.error(err);
+    t.fail("validate's promise rejected with incompleteSchemaPayload");
   }
 });

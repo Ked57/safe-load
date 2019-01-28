@@ -61,6 +61,14 @@ var missingPropertiesPayload = {
         level: 12
     }
 };
+var incompleteSchemaPayload = {
+    data: {
+        welcomingMessage: "hello world",
+        level: 12,
+        nickname: "ked",
+        somethingNotImportant: "this is really not important"
+    }
+};
 var payloadSchema = {
     data: {
         welcomingMessage: "string",
@@ -93,7 +101,6 @@ ava_1.default("payload is not valid", function (t) { return __awaiter(_this, voi
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
-                console.error(err_1);
                 t.pass();
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
@@ -109,12 +116,31 @@ ava_1.default("payload has missing properties", function (t) { return __awaiter(
                 return [4 /*yield*/, safe_load_1.validate(missingPropertiesPayload, payloadSchema)];
             case 1:
                 _a.sent();
-                t.fail("validate promise didn't reject with missingPropertiesPayload");
+                t.fail("validate's promise didn't reject with missingPropertiesPayload");
                 return [3 /*break*/, 3];
             case 2:
                 err_2 = _a.sent();
-                console.error(err_2);
                 t.pass();
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+ava_1.default("schema is incomplete but payload is valid", function (t) { return __awaiter(_this, void 0, void 0, function () {
+    var err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, safe_load_1.validate(incompleteSchemaPayload, payloadSchema)];
+            case 1:
+                _a.sent();
+                t.pass();
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                console.error(err_3);
+                t.fail("validate's promise rejected with incompleteSchemaPayload");
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }

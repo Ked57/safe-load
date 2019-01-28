@@ -86,7 +86,7 @@ var check = function (payload, schema) { return __awaiter(_this, void 0, void 0,
                                             return [3 /*break*/, 4];
                                         case 4: return [3 /*break*/, 6];
                                         case 5:
-                                            if (typeof payload[key] !== schema[key]) {
+                                            if (typeof payload[key] !== schema[key] && schema[key]) {
                                                 reject("Error: payload's field \"" + key + "\" type is " + typeof payload[key] + " instead of " + schema[key]);
                                             }
                                             else {

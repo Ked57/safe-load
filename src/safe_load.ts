@@ -34,7 +34,7 @@ const check = async (
                 } catch (err) {
                   reject(err);
                 }
-              } else if (typeof payload[key] !== schema[key]) {
+              } else if (typeof payload[key] !== schema[key] && schema[key]) {
                 reject(
                   `Error: payload's field "${key}" type is ${typeof payload[
                     key
