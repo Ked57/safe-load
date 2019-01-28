@@ -12,7 +12,8 @@ It's very easy to use, you need 2 object:
 
 ### Basic example 
 
-```const { validate } = require("safe-load");
+```javascript
+const { validate } = require("safe-load");
 
 const payload = {
   data: {
@@ -49,7 +50,8 @@ The result should be
 Do you always use every field of your payload ? I personaly don't, that's why I chose to let you validate payloads that are bigger than your schema.
 
 Example:
-```const { validate } = require("safe-load");
+```javascript
+const { validate } = require("safe-load");
 
 const payload = {
   data: {
