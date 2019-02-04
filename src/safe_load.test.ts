@@ -3,69 +3,57 @@ import { validate } from "./safe_load";
 
 const payload = {
   data: {
-    welcomingMessage: "hello world",
+    welcomingMessages: ["hello world", "hello there"],
     level: 12,
     nickname: "ked"
-  }
+  },
+  key: "akey",
+  isABoolean: true
 };
 const invalidPayload = {
   data: {
-    welcomingMessage: "hello world",
+    welcomingMessages: ["hello world", "hello there"],
     level: 12,
     nickname: true
-  }
+  },
+  key: "akey",
+  isABoolean: true
 };
 const missingPropertiesPayload = {
-  data: {
-    welcomingMessage: "hello world",
-    level: 12
-  }
+  data: { welcomingMessages: ["hello world", "hello there"], level: 12 }
 };
-const incompleteSchemaPayload = {
+const largerThanSchemaPayload = {
   data: {
-    welcomingMessage: "hello world",
+    welcomingMessages: ["hello world", "hello there"],
     level: 12,
-    nickname: "ked",
-    somethingNotImportant: "this is really not important"
-  }
+    nickname: "ked"
+  },
+  key: "akey",
+  isABoolean: true,
+  someThingNotUsefull: "this is really not important"
 };
 const payloadSchema = {
   data: {
-    welcomingMessage: "string",
+    welcomingMessages: ["string"],
     level: "number",
     nickname: "string"
-  }
+  },
+  key: "string",
+  isABoolean: "boolean"
 };
 
-test("payload is valid", async t => {
-  const testPayload = await validate(payload, payloadSchema);
-  t.deepEqual(testPayload, payload);
+test("payload is valid", t => {
+  t.is(validate(payload, payloadSchema), true);
 });
 
-test("payload is not valid", async t => {
-  try {
-    const testPayload = await validate(invalidPayload, payloadSchema);
-    t.notDeepEqual(testPayload, payload);
-  } catch (err) {
-    t.pass();
-  }
+test("payload is not valid", t => {
+  t.is(validate(invalidPayload, payloadSchema), false);
 });
 
-test("payload has missing properties", async t => {
-  try {
-    await validate(missingPropertiesPayload, payloadSchema);
-    t.fail("validate's promise didn't reject with missingPropertiesPayload");
-  } catch (err) {
-    t.pass();
-  }
+test("payload has missing properties", t => {
+  t.is(validate(missingPropertiesPayload, payloadSchema), false);
 });
 
-test("schema is incomplete but payload is valid", async t => {
-  try {
-    await validate(incompleteSchemaPayload, payloadSchema);
-    t.pass();
-  } catch (err) {
-    console.error(err);
-    t.fail("validate's promise rejected with incompleteSchemaPayload");
-  }
+test("payload is larger than schema", t => {
+  t.is(validate(largerThanSchemaPayload, payloadSchema), true);
 });
